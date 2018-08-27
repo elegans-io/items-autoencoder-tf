@@ -203,6 +203,12 @@ parser.add_argument('--input-folder', type=str, default=os.path.join(current_pat
                     help='input data directory with COOCCURRENCE_* folder')
 parser.add_argument('--out-folder', type=str, default=os.path.join(current_path, 'ITEM_TO_ITEM_ENCODER'),
                     help='The log directory for TensorBoard summaries.')
+parser.add_argument('--batch-size', type=int, default=512, help='the batch size')
+parser.add_argument('--embedding-size', type=int, default=16, help='the embedding size')
+parser.add_argument('--num-neg-sampled', type=int, default=5, help='the number of negative sampled items')
+parser.add_argument('--epochs', type=int, default=5, help='the number of training epochs')
+parser.add_argument('--learning-rate', type=int, default=0.5, help='the learning rate')
+
 FLAGS, unparsed = parser.parse_known_args()
 
 # Create the directory for TensorBoard variables if there is not.
@@ -221,16 +227,14 @@ max_rank_id = int(cooccurrence_values[0])
 cooccurrence_entries = int(cooccurrence_values[1])
 vocabulary_size = max_rank_id + 1
 
-batch_size = 512
-embedding_size = 16  # Dimension of the embedding vector.
-num_sampled = 5  # Number of negative examples to sample.
-
-learning_rate = 0.5
+batch_size = FLAGS.batch_size
+embedding_size = FLAGS.embedding_size  # Dimension of the embedding vector.
+num_sampled = FLAGS.num_neg_sampled  # Number of negative examples to sample.
+learning_rate = FLAGS.learning_rate
+epochs = FLAGS.epochs
 
 printloss_step = 2000
 evaluate_step = 10000
-
-epochs = 5
 
 batches = batch_generator(p_cooccurrence_folder=cooccurrence_folder,
                           p_batch_size=batch_size, p_epochs=epochs)
