@@ -1,6 +1,6 @@
 # Encoder NN for items to items
 
-The program calculates the vector representation from items 
+The program calculates the vector representation from items using an encoder NN
 
 ## Usage:
 
