@@ -202,7 +202,7 @@ parser = argparse.ArgumentParser(description='Train an encoder NN to extract a v
 parser.add_argument('--input-folder', type=str, default=os.path.join(current_path, 'ETL_FOLDER'),
                     help='input data directory with COOCCURRENCE_* folder')
 parser.add_argument('--out-folder', type=str, default=os.path.join(current_path, 'ITEM_TO_ITEM_ENCODER'),
-                    help='The log directory for TensorBoard summaries.')
+                    help='The output folder')
 parser.add_argument('--batch-size', type=int, default=512, help='the batch size')
 parser.add_argument('--embedding-size', type=int, default=16, help='the embedding size')
 parser.add_argument('--num-neg-sampled', type=int, default=5, help='the number of negative sampled items')
