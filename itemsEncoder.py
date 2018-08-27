@@ -128,7 +128,7 @@ def encoder():
     # Begin training.
     with tf.device('/gpu:0'), tf.Session(graph=graph) as session:
         # Open a writer to write summaries.
-        writer = tf.summary.FileWriter(FLAGS.out_folder, session.graph)
+        writer = tf.summary.FileWriter(out_folder, session.graph)
 
         # We must initialize all variables before we use them.
         init.run()
@@ -180,16 +180,16 @@ def encoder():
         final_embeddings = normalized_embeddings.eval()
 
         # Save the model for checkpoints.
-        saver.save(session, os.path.join(FLAGS.out_folder, 'model.ckpt'))
+        saver.save(session, os.path.join(out_folder, 'model.ckpt'))
 
         # Create a configuration for visualizing embeddings with the labels in TensorBoard.
         config = projector.ProjectorConfig()
         embedding_conf = config.embeddings.add()
         embedding_conf.tensor_name = embeddings.name
-        embedding_conf.metadata_path = os.path.join(FLAGS.out_folder, 'metadata.tsv')
+        embedding_conf.metadata_path = os.path.join(out_folder, 'metadata.tsv')
         projector.visualize_embeddings(writer, config)
 
-        with open(FLAGS.out_folder + '/final_embeddings_' + str(embedding_size) + '.tsv', 'w') as f:
+        with open(out_folder + '/final_embeddings_' + str(embedding_size) + '.tsv', 'w') as f:
             for i in xrange(vocabulary_size):
                 f.write(str(i) + "\t" + ",".join([str(k) for k in final_embeddings[0]]) + '\n')
             writer.close()
@@ -211,9 +211,11 @@ parser.add_argument('--learning-rate', type=float, default=0.5, help='the learni
 
 FLAGS, unparsed = parser.parse_known_args()
 
+out_folder=FLAGS.out_folder
+
 # Create the directory for TensorBoard variables if there is not.
-if not os.path.exists(FLAGS.out_folder):
-    os.makedirs(FLAGS.out_folder)
+if not os.path.exists(out_folder):
+    os.makedirs(out_folder)
 
 # Step 3: Function to generate a training batch for the skip-gram model.
 cooccurrence_folders = glob.glob(FLAGS.input_folder + "/COOCCURRENCE_*")
