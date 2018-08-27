@@ -207,7 +207,7 @@ parser.add_argument('--batch-size', type=int, default=512, help='the batch size'
 parser.add_argument('--embedding-size', type=int, default=16, help='the embedding size')
 parser.add_argument('--num-neg-sampled', type=int, default=5, help='the number of negative sampled items')
 parser.add_argument('--epochs', type=int, default=5, help='the number of training epochs')
-parser.add_argument('--learning-rate', type=int, default=0.5, help='the learning rate')
+parser.add_argument('--learning-rate', type=float, default=0.5, help='the learning rate')
 
 FLAGS, unparsed = parser.parse_known_args()
 
