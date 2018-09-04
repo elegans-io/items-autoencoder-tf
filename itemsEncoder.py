@@ -191,7 +191,7 @@ def encoder():
 
         with open(out_folder + '/final_embeddings_' + str(embedding_size) + '.tsv', 'w') as f:
             for i in xrange(vocabulary_size):
-                f.write(str(i) + "\t" + ",".join([str(k) for k in final_embeddings[0]]) + '\n')
+                f.write(str(i) + "\t" + ",".join([str(k) for k in final_embeddings[i]]) + '\n')
             writer.close()
 
 
